@@ -4,9 +4,12 @@ from backend.utils import predict_habitability
 import pandas as pd
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, "..", "frontend")
+
 app = Flask(
     __name__,
-    static_folder="../frontend",
+    static_folder=FRONTEND_DIR,
     static_url_path="/static"
 )
 
@@ -15,8 +18,7 @@ CORS(app)
 
 @app.route("/", methods=["GET"])
 def home():
-    return send_from_directory(app.static_folder, "index.html")
-
+    return send_from_directory(FRONTEND_DIR, "index.html")
 
 @app.route("/predict", methods=["POST"])
 def predict():
